@@ -21,4 +21,11 @@ PZServer.registerConsoleCommand("setGroup", function(source, args)
         PZShared.warn(PZColor.red..PZShared.translate("rank_missing"))
         return
     end
+
+    local success = PZRanksManager.setRank(target, targetRank)
+    if success then
+        ---@type PZRank
+        local rank = PZRanksManager.getRank(targetRank)
+        PZShared.trace(PZShared.translate("rank_updated"):format(GetPlayerName(source), rank.display))
+    end
 end)
